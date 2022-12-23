@@ -210,6 +210,95 @@
 
   * Looks like that fixed it
 
+* Now, next I want to improve the title screen by adding the logo that I prepared
+
+  * That won't do much for the functionality, but I just know it'll work wonders for my motivation
+
+  * Also, this way I'll learn how to integrate pictures
+
+  * This might be a good place to start for this:
+
+    * https://developer.android.com/jetpack/compose/graphics/images/loading
+    * Hmm, unfortunately, that's not really helpful
+
+  * Maybe this will be better?
+
+    * https://developer.android.com/codelabs/basic-android-kotlin-compose-add-images#3
+    * Okay, based on that, I _think_ the image needs to go in `ceal-chronicler\shared-ui\res\drawables`
+    * Hmm, that doesn't really work either
+
+  * The theory is all well and good, but in practice it appears there are problems with the fact that I'm not on android, and as such the `R` class does not seem to exist, meaning this claim does not apply:
+
+    * > An `R` class is an automatically generated class by Android that contains the IDs of all resources in the project
+
+  * Or am I missing a dependency somewhere?
+
+  * Maybe this full example here will help?
+
+    * https://github.com/Foso/Jetpack-Compose-Playground/blob/master/app/src/main/java/de/jensklingenberg/jetpackcomposeplayground/mysamples/github/foundation/ImageResourceDemo.kt
+    * Not really...
+
+  * Maybe this will help?
+
+    * https://luisramos.dev/how-to-share-resources-kmm
+    * That seems horrible! No!
+
+  * How about this plugin?
+
+    * https://github.com/icerockdev/moko-resources
+    * 
+
 
 
 # ⚓
+
+
+
+# Kotlin Multiplatform Pros & Cons
+
+## Pros
+
+* You can use Kotlin Compose to create frontends that will work on both Android and Desktop, including iOS Desktop
+  * For iOS Mobile, you need frontend code written in Swift though (as far as I can tell)
+
+## Cons
+
+* Long build times
+  * 10-minute waits on project sync-ups
+  * 2-minute wait on daily start-up
+  * Regular wait times during project builds and gradle refreshes
+
+* I'm having considerable trouble even just with the Tutorials, which makes me not at all optimisitic about building an actual production app with this
+* Setting up a project seems overly complicated
+  * Regularly getting project configuration issues, such as modules not being recognized as such, and it apparently is impossible to tell the IDE that a folder is a module
+
+* Large file sizes (129 MB for a program that barely does anything)
+
+* Multiplatform support for resources is not natively implemented
+
+
+
+# Knowledgebase
+
+## Bugfixes
+
+### Module is not recognized
+
+**Symptoms**
+
+* A folder that is supposed to be a module is not recognized as such
+
+**Cause**
+
+* Possibly a typo
+* For a folder to be recognized as a module, the `settings.gradle.kts` has to have an `include` statement for that folder
+* If either the module folder or the include statement  have a typo, then the module will not be recognized
+* Example:
+  * Folder: `desktop`
+  * Include statement: `include(":dektop")`⚡
+
+**Fix**
+
+* Make sure the module folder name and the module import statement are the same and have no typos
+
+# 

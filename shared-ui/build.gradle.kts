@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose") version "1.2.2"
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 android {
@@ -20,7 +21,14 @@ android {
     }
 }
 dependencies {
-    implementation("androidx.compose.ui:ui-graphics:1.3.2")
+    var composeVersion = "1.3.2"
+    implementation("androidx.compose.ui:ui-graphics:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+
+    commonMainApi("dev.icerock.moko:resources:0.20.1")
+    androidMainApi("dev.icerock.moko:resources-compose:0.20.1")
+    jvmMainApi("dev.icerock.moko:resources-compose:0.20.1")
+    commonTestImplementation("dev.icerock.moko:resources-test:0.20.1")
 }
 
 kotlin {
@@ -47,9 +55,9 @@ kotlin {
         }
         val commonTest by getting
         val androidMain by getting {
-            dependencies {
-            }
+            api("dev.icerock.moko:resources-compose:0.20.1")
         }
         val desktopMain by getting
+
     }
 }
